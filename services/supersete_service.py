@@ -134,7 +134,11 @@ class SuperSeteService:
                 # Usar frequências como pesos
                 numeros = list(range(10))
                 pesos = [freq_coluna.get(str(n), 1) for n in numeros]
-                return random.choices(numeros, weights=pesos, k=1)[0]
+                # Check if all weights are zero (empty database)
+                if sum(pesos) > 0:
+                    return random.choices(numeros, weights=pesos, k=1)[0]
+                else:
+                    return random.randint(0, 9)
             else:
                 return random.randint(0, 9)
     
@@ -251,7 +255,11 @@ class SuperSeteService:
             if freq_coluna:
                 numeros = list(range(10))
                 pesos = [freq_coluna.get(str(n), 1) for n in numeros]
-                numero = random.choices(numeros, weights=pesos, k=1)[0]
+                # Check if all weights are zero (empty database)
+                if sum(pesos) > 0:
+                    numero = random.choices(numeros, weights=pesos, k=1)[0]
+                else:
+                    numero = random.randint(0, 9)
             else:
                 numero = random.randint(0, 9)
             
