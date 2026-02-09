@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Análise e Geração de Palpites para Super Sete">
+    <title>{% block title %}Super Sete - Análise por Posição{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="https://i.postimg.cc/wBthkvvc/supersete.png" alt="Super Sete Logo" class="logo">
+            <div class="header-title">
+                <h1>Super Sete</h1>
+                <p>Sistema de Análise por Posição</p>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('main.index') }}" {% if request.endpoint == 'main.index' %}class="active"{% endif %}>📊 Estatísticas</a></li>
+            <li><a href="{{ url_for('main.palpites') }}" {% if request.endpoint == 'main.palpites' %}class="active"{% endif %}>🎲 Palpites</a></li>
+        </ul>
+    </nav>
+    
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p><strong>Super Sete - Sistema de Análise por Posição</strong></p>
+        <p>Análise estatística baseada em dados reais da Caixa Econômica Federal</p>
+        <p>⚠️ Este sistema é apenas para fins educacionais e de entretenimento</p>
+        <p>&copy; 2025 - Desenvolvido com 💚 em Python & Flask</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
