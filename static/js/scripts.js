@@ -120,6 +120,22 @@ async function carregarEstatisticas() {
 }
 
 // Função para criar heatmap de frequências
+/**
+ * Cria um heatmap visual mostrando a frequência de cada número em cada coluna.
+ * 
+ * @param {Object} frequencias - Objeto com estrutura:
+ *   {
+ *     "coluna_1": {"0": freq, "1": freq, ..., "9": freq},
+ *     "coluna_2": {...},
+ *     ...
+ *     "coluna_7": {...}
+ *   }
+ * 
+ * Visual encoding:
+ * - freq-low: intensidade 0-33% (cor mais clara)
+ * - freq-medium: intensidade 34-66% (cor média)
+ * - freq-high: intensidade 67-100% (cor mais escura/destaque)
+ */
 function criarHeatmap(frequencias) {
     const heatmapContainer = document.getElementById('heatmap-container');
     if (!heatmapContainer) return;
@@ -389,21 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
         carregarEstatisticas();
     }
     
-    // Botão de atualizar dados
-    const btnAtualizar = document.getElementById('btn-atualizar');
-    if (btnAtualizar) {
-        btnAtualizar.addEventListener('click', atualizarDados);
-    }
-    
-    // Botão de gerar palpites
-    const btnGerarPalpites = document.getElementById('btn-gerar-palpites');
-    if (btnGerarPalpites) {
-        btnGerarPalpites.addEventListener('click', gerarPalpites);
-    }
-    
-    // Botão de conferir palpite
-    const btnConferir = document.getElementById('btn-conferir');
-    if (btnConferir) {
-        btnConferir.addEventListener('click', conferirPalpite);
-    }
+    // Event listeners are handled via onclick attributes in HTML
+    // to avoid duplicate handlers
 });

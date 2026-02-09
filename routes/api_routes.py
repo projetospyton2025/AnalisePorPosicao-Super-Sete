@@ -239,6 +239,14 @@ def conferir():
             }), 400
         
         palpite = dados['palpite']
+        
+        # Validar estrutura do palpite
+        if not isinstance(palpite, list) or len(palpite) != 7:
+            return jsonify({
+                'sucesso': False,
+                'erro': 'Palpite deve ser uma lista com 7 números'
+            }), 400
+        
         numero_concurso = dados.get('numero_concurso')
         
         # Buscar resultado

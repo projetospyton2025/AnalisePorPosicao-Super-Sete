@@ -2,9 +2,14 @@
 Model para armazenamento e gerenciamento de resultados da Super Sete.
 """
 import sqlite3
+import logging
 from datetime import datetime
 from typing import List, Dict, Optional
 from config import Config, SuperSeteConfig
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class ResultadoModel:
@@ -137,7 +142,7 @@ class ResultadoModel:
                 conn.commit()
             return True
         except Exception as e:
-            print(f"Erro ao inserir resultado: {e}")
+            logger.error(f"Erro ao inserir resultado: {e}")
             return False
     
     def buscar_ultimo(self) -> Optional[Dict]:
@@ -158,7 +163,7 @@ class ResultadoModel:
                     return dict(row)
                 return None
         except Exception as e:
-            print(f"Erro ao buscar último resultado: {e}")
+            logger.error(f"Erro ao buscar último resultado: {e}")
             return None
     
     def buscar_todos(self, limite: int = None) -> List[Dict]:
@@ -187,7 +192,7 @@ class ResultadoModel:
                 rows = cursor.fetchall()
                 return [dict(row) for row in rows]
         except Exception as e:
-            print(f"Erro ao buscar todos os resultados: {e}")
+            logger.error(f"Erro ao buscar todos os resultados: {e}")
             return []
     
     def buscar_por_numero(self, numero: int) -> Optional[Dict]:
@@ -211,7 +216,7 @@ class ResultadoModel:
                     return dict(row)
                 return None
         except Exception as e:
-            print(f"Erro ao buscar resultado por número: {e}")
+            logger.error(f"Erro ao buscar resultado por número: {e}")
             return None
     
     def contar_resultados(self) -> int:
@@ -227,5 +232,5 @@ class ResultadoModel:
                 cursor.execute('SELECT COUNT(*) FROM resultados')
                 return cursor.fetchone()[0]
         except Exception as e:
-            print(f"Erro ao contar resultados: {e}")
+            logger.error(f"Erro ao contar resultados: {e}")
             return 0

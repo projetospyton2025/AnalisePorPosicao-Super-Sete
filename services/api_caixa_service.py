@@ -2,8 +2,12 @@
 Serviço para integração com a API da Caixa Econômica Federal.
 """
 import requests
+import logging
 from typing import Optional, Dict
 from config import Config
+
+# Configurar logging
+logger = logging.getLogger(__name__)
 
 
 class ApiCaixaService:
@@ -28,10 +32,10 @@ class ApiCaixaService:
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f"Erro ao buscar último concurso: {e}")
+            logger.error(f"Erro ao buscar último concurso: {e}")
             return None
         except ValueError as e:
-            print(f"Erro ao decodificar JSON: {e}")
+            logger.error(f"Erro ao decodificar JSON: {e}")
             return None
     
     def buscar_concurso_especifico(self, numero: int) -> Optional[Dict]:
@@ -50,10 +54,10 @@ class ApiCaixaService:
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f"Erro ao buscar concurso {numero}: {e}")
+            logger.error(f"Erro ao buscar concurso {numero}: {e}")
             return None
         except ValueError as e:
-            print(f"Erro ao decodificar JSON: {e}")
+            logger.error(f"Erro ao decodificar JSON: {e}")
             return None
     
     def atualizar_base_completa(self, modelo_resultado) -> Dict:
@@ -110,6 +114,6 @@ class ApiCaixaService:
             return resultado_estatisticas
             
         except Exception as e:
-            print(f"Erro ao atualizar base completa: {e}")
+            logger.error(f"Erro ao atualizar base completa: {e}")
             resultado_estatisticas['erros'] += 1
             return resultado_estatisticas

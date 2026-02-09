@@ -120,10 +120,12 @@
 
 <script>
 // Mostrar container de palpites quando gerados
-const originalMostrarPalpites = window.mostrarPalpites;
-window.mostrarPalpites = function(palpites) {
-    originalMostrarPalpites(palpites);
-    document.getElementById('palpites-gerados').style.display = 'block';
-};
+if (typeof window.mostrarPalpites === 'function') {
+    const originalMostrarPalpites = window.mostrarPalpites;
+    window.mostrarPalpites = function(palpites) {
+        originalMostrarPalpites(palpites);
+        document.getElementById('palpites-gerados').style.display = 'block';
+    };
+}
 </script>
 {% endblock %}
