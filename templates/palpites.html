@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Palpites - Super Sete{% endblock %}
+
+{% block content %}
+<div class="loading" id="loading-palpites">
+    <div class="spinner"></div>
+    <p>Gerando palpites...</p>
+</div>
+
+<!-- Gerador de Palpites -->
+<div class="card">
+    <div class="card-header">
+        <h2>🎲 Gerador de Palpites</h2>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="estrategia">Estratégia:</label>
+            <select id="estrategia">
+                <option value="equilibrada">🎯 Equilibrada (Mix de frequentes e atrasados)</option>
+                <option value="agressiva">🔥 Agressiva (Números mais frequentes)</option>
+                <option value="conservadora">❄️ Conservadora (Números atrasados)</option>
+                <option value="mista">🎨 Mista (Combina várias estratégias)</option>
+                <option value="atrasados">⏰ Atrasados (Maior atraso)</option>
+                <option value="aleatorio_inteligente">🎰 Aleatório Inteligente (Pesos por frequência)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="quantidade">Quantidade de Jogos:</label>
+            <input type="number" id="quantidade" min="1" max="100" value="3">
+        </div>
+        
+        <button class="btn" id="btn-gerar-palpites" onclick="gerarPalpites()">
+            ✨ Gerar Palpites
+        </button>
+        
+        <div style="margin-top: 1rem; padding: 1rem; background-color: var(--cor-95); border-radius: 5px;">
+            <p><strong>ℹ️ Sobre as Estratégias:</strong></p>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>Equilibrada:</strong> Combina números frequentes e atrasados em cada coluna</li>
+                <li><strong>Agressiva:</strong> Prioriza os números que mais aparecem historicamente</li>
+                <li><strong>Conservadora:</strong> Foca em números que estão há mais tempo sem sair</li>
+                <li><strong>Mista:</strong> Usa diferentes estratégias aleatoriamente por coluna</li>
+                <li><strong>Atrasados:</strong> Escolhe apenas os números mais atrasados</li>
+                <li><strong>Aleatório Inteligente:</strong> Sorteio com peso baseado na frequência histórica</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Palpites Gerados -->
+<div class="card" id="palpites-gerados" style="display: none;">
+    <div class="card-header">
+        <h2>✨ Palpites Gerados</h2>
+    </div>
+    <div class="card-body">
+        <div id="palpites-container"></div>
+    </div>
+</div>
+
+<!-- Conferir Palpite -->
+<div class="card">
+    <div class="card-header">
+        <h2>✅ Conferir Palpite</h2>
+    </div>
+    <div class="card-body">
+        <p style="margin-bottom: 1rem; color: var(--cor-texto-claro);">
+            Digite os números do seu jogo (0-9) para cada coluna:
+        </p>
+        
+        <div class="colunas-grid">
+            <div class="form-group">
+                <label for="palpite-col-1">Coluna 1:</label>
+                <input type="number" id="palpite-col-1" min="0" max="9" value="0">
+            </div>
+            <div class="form-group">
+                <label for="palpite-col-2">Coluna 2:</label>
+                <input type="number" id="palpite-col-2" min="0" max="9" value="0">
+            </div>
+            <div class="form-group">
+                <label for="palpite-col-3">Coluna 3:</label>
+                <input type="number" id="palpite-col-3" min="0" max="9" value="0">
+            </div>
+            <div class="form-group">
+                <label for="palpite-col-4">Coluna 4:</label>
+                <input type="number" id="palpite-col-4" min="0" max="9" value="0">
+            </div>
+            <div class="form-group">
+                <label for="palpite-col-5">Coluna 5:</label>
+                <input type="number" id="palpite-col-5" min="0" max="9" value="0">
+            </div>
+            <div class="form-group">
+                <label for="palpite-col-6">Coluna 6:</label>
+                <input type="number" id="palpite-col-6" min="0" max="9" value="0">
+            </div>
+            <div class="form-group">
+                <label for="palpite-col-7">Coluna 7:</label>
+                <input type="number" id="palpite-col-7" min="0" max="9" value="0">
+            </div>
+        </div>
+        
+        <div class="form-group" style="margin-top: 1rem;">
+            <label for="numero-concurso">Número do Concurso (deixe em branco para o último):</label>
+            <input type="number" id="numero-concurso" placeholder="Ex: 728">
+        </div>
+        
+        <button class="btn" id="btn-conferir" onclick="conferirPalpite()">
+            🔍 Conferir Palpite
+        </button>
+        
+        <div class="loading" id="loading-conferencia">
+            <div class="spinner"></div>
+            <p>Conferindo...</p>
+        </div>
+        
+        <div id="resultado-conferencia" style="display: none; margin-top: 1.5rem;"></div>
+    </div>
+</div>
+
+<script>
+// Mostrar container de palpites quando gerados
+const originalMostrarPalpites = window.mostrarPalpites;
+window.mostrarPalpites = function(palpites) {
+    originalMostrarPalpites(palpites);
+    document.getElementById('palpites-gerados').style.display = 'block';
+};
+</script>
+{% endblock %}

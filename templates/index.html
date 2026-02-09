@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Estatísticas - Super Sete{% endblock %}
+
+{% block content %}
+<div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Atualizando dados...</p>
+</div>
+
+<!-- Último Resultado -->
+<div class="card" id="ultimo-resultado">
+    <div class="card-header">
+        <h2>🎯 Último Resultado</h2>
+        <button class="btn" id="btn-atualizar" onclick="atualizarDados()">🔄 Atualizar Dados</button>
+    </div>
+    <div class="card-body">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h3 style="color: var(--cor-40);">Concurso <span id="concurso-numero">-</span></h3>
+            <p>Data: <span id="concurso-data">-</span></p>
+        </div>
+        
+        <div class="colunas-grid">
+            <div class="coluna-item">
+                <h3>Coluna 1</h3>
+                <div class="coluna-numero" id="coluna-1">-</div>
+            </div>
+            <div class="coluna-item">
+                <h3>Coluna 2</h3>
+                <div class="coluna-numero" id="coluna-2">-</div>
+            </div>
+            <div class="coluna-item">
+                <h3>Coluna 3</h3>
+                <div class="coluna-numero" id="coluna-3">-</div>
+            </div>
+            <div class="coluna-item">
+                <h3>Coluna 4</h3>
+                <div class="coluna-numero" id="coluna-4">-</div>
+            </div>
+            <div class="coluna-item">
+                <h3>Coluna 5</h3>
+                <div class="coluna-numero" id="coluna-5">-</div>
+            </div>
+            <div class="coluna-item">
+                <h3>Coluna 6</h3>
+                <div class="coluna-numero" id="coluna-6">-</div>
+            </div>
+            <div class="coluna-item">
+                <h3>Coluna 7</h3>
+                <div class="coluna-numero" id="coluna-7">-</div>
+            </div>
+        </div>
+        
+        <div class="stats-grid" style="margin-top: 1.5rem;">
+            <div class="stat-item">
+                <div class="stat-label">Acumulado</div>
+                <div class="stat-value" id="acumulado">-</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Prêmio Acumulado</div>
+                <div class="stat-value" id="valor-acumulado" style="font-size: 1.2rem;">R$ 0,00</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estatísticas Gerais -->
+<div class="card">
+    <div class="card-header">
+        <h2>📈 Estatísticas Gerais</h2>
+    </div>
+    <div class="card-body">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-label">Total de Concursos</div>
+                <div class="stat-value" id="total-concursos">0</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Heatmap de Frequências -->
+<div class="card">
+    <div class="card-header">
+        <h2>🔥 Heatmap de Frequências</h2>
+    </div>
+    <div class="card-body">
+        <p style="text-align: center; color: var(--cor-texto-claro); margin-bottom: 1rem;">
+            Visualização da frequência de cada número (0-9) em cada coluna. 
+            <strong>Cores mais escuras</strong> indicam maior frequência.
+        </p>
+        <div id="heatmap-container"></div>
+    </div>
+</div>
+
+<!-- Estatísticas por Coluna -->
+<div class="card">
+    <div class="card-header">
+        <h2>📊 Análise por Coluna</h2>
+    </div>
+    <div class="card-body">
+        <div id="stats-por-coluna"></div>
+    </div>
+</div>
+
+<style>
+#stats-por-coluna > .card {
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--cor-95) 0%, var(--cor-100) 100%);
+}
+
+#stats-por-coluna h3 {
+    color: var(--cor-40);
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+}
+</style>
+{% endblock %}
